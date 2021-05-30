@@ -1,0 +1,19 @@
+#spring.application.name=ws-producto
+#spring.config.import = optional:configserver:http://localhost:8888
+spring:
+  r2dbc:
+    url: r2dbcs:mysql://34.136.160.11:3306/sistema_productos
+    #url: r2dbc:gcp:mysql://prueba-ws:us-central1:local-productos/sistema_productos
+    #url: r2dbcs:mysql://localhost:3306/sistema_productos
+    username: root
+    password: root
+    pool:
+      enabled:true:
+    initial-size: 100
+    max-size: 500
+    max-idle-time: 30m
+  data:
+    mongodb:
+      uri: mongodb+srv://jhonatan:jMallqui1@mongoproject.gsefy.mongodb.net/bd_productos
+  server:
+    port: 8080
