@@ -49,7 +49,7 @@ public class ControllerEmpresa  {
         return empresaService.actualizar(id,request);
     }
 
-    @PostMapping("/buscarPorSede/{idSede}")
+    @GetMapping("/buscarPorSede/{idSede}")
     Observable<Empresa> buscarBySede( @PathVariable("idSede")  @NotNull long id) {
         return empresaService.findByIdSede(id);
     }

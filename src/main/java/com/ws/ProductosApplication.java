@@ -1,6 +1,7 @@
 package com.ws;
 
 import com.ws.configuracion.jwt.JWTAuthorizationFilter;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -26,15 +27,12 @@ public class ProductosApplication {
 			"/webjars/**","/swagger-ui.html/**"
 	};
 
-	public static void main(String[] args) throws Exception {
 
+
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ProductosApplication.class, args);
 
 	}
-
-
-
-
 
 
 	@EnableWebSecurity
@@ -48,6 +46,7 @@ public class ProductosApplication {
 					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/token/login").permitAll()
 					.antMatchers(HttpMethod.GET, "/api/generarReporte").permitAll()
+					.antMatchers(HttpMethod.POST, "/api/consulta/consultar_voz").permitAll()
 					.antMatchers(HttpMethod.GET, AUTH_WHITELIST).permitAll()
 					.anyRequest().authenticated().and().cors();
 		}

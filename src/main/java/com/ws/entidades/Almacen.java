@@ -1,5 +1,6 @@
 package com.ws.entidades;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ws.util.IdValidacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,13 +41,15 @@ public class Almacen {
     private long stock;
     @NotNull
     private long minimo_stock;
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate fecha_ingreso;
-    @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate fecha_actualizacion;
-    @NotNull
     private long id_usuario_mantenimiento;
 
     private int estado;
+
+
 
 
 }

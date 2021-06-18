@@ -50,7 +50,7 @@ public class ControllerMaterial implements IControllerService<Material,Long> {
 
     @Override
     public Observable<Material> buscarBySede(@NotNull Long id) {
-        return null;
+        return materialService.findByIdSede(id);
     }
 
     @Override

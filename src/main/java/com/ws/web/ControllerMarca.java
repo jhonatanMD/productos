@@ -52,7 +52,7 @@ public class ControllerMarca implements IControllerService<Marca,Long> {
 
     @Override
     public Observable<Marca> buscarBySede(@NotNull Long id) {
-        return null;
+        return marcaService.findByIdSede(id);
     }
 
     @Override

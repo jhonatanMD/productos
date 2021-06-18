@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,14 +40,11 @@ public class ControllerReportes {
     public String generateReport( HttpServletRequest request, HttpServletResponse response) throws IOException, JRException {
 
 
-        List<Reporte> personas = List.of(new Reporte(1,"jhonatan","mallqui"),
-                new Reporte(2,"jhonatan","mallqui"),new Reporte(3,"jhonatan","mallqui"),
-                new Reporte(4,"jhonatan","mallqui"));
+        List<ProductoDto> productoDtos = new ArrayList<>();
 
-        List<ProductoDto> productoDtos = List.of(new ProductoDto(1,2,"producto 2 ",new BigDecimal(10),new BigDecimal(20)),
-                new ProductoDto(2,5,"producto 2 ",new BigDecimal(60),new BigDecimal(300)),
-                new ProductoDto(3,10,"producto 3 ",new BigDecimal(10),new BigDecimal(100)),
-                new ProductoDto(4,20,"producto 4 ",new BigDecimal(5),new BigDecimal(100)));
+        for(int i = 1 ; i <= 100 ; i++){
+            productoDtos.add(new ProductoDto(i,2,"producto "+i,new BigDecimal(10.45),new BigDecimal(20.56)));
+        }
 
         JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(productoDtos,false);
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -69,21 +67,7 @@ public class ControllerReportes {
 
 
 
-
-
-    @Getter
-    @Setter
-    public class Reporte{
-        private Integer id;
-        private String nombre;
-        private String apellido;
-
-        public Reporte(Integer id, String nombre, String apellido) {
-            this.id = id;
-            this.nombre = nombre;
-            this.apellido = apellido;
-        }
-    }
+    
 
 
 

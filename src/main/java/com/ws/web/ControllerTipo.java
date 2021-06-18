@@ -49,7 +49,7 @@ public class ControllerTipo implements IControllerService<Tipo,Long> {
 
     @Override
     public Observable<Tipo> buscarBySede(@NotNull Long id) {
-        return null;
+        return tipoService.findByIdSede(id);
     }
 
     @Override

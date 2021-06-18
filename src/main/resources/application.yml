@@ -2,15 +2,15 @@
 #spring.config.import = optional:configserver:http://localhost:8888
 spring:
   r2dbc:
-    url: r2dbcs:mysql://bphp0aw3mmmq7r2hsdtz-mysql.services.clever-cloud.com:3306/bphp0aw3mmmq7r2hsdtz
-    #url: r2dbcs:mysql://35.225.241.233:3306/sistema_productos
+    #url: r2dbcs:mysql://bphp0aw3mmmq7r2hsdtz-mysql.services.clever-cloud.com:3306/bphp0aw3mmmq7r2hsdtz
+    url: r2dbcs:mysql://35.225.241.233:3306/sistema_productos
     #schema: sistema_productos
     #url: r2dbc:gcp:mysql://prueba-ws:us-central1:local-productos/sistema_productos
     #url: r2dbcs:mysql://localhost:3306/sistema_productos
-    #username: root
-    username: umyr5efmpotkijhp
-    password: XanYzHg76i0zvAwPlJCv
-    #password: root
+    username: root
+    #username: umyr5efmpotkijhp
+    #password: XanYzHg76i0zvAwPlJCv
+    password: jhona_mysql
     pool:
       enabled:true:
     initial-size: 100

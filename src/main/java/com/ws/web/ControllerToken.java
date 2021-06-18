@@ -30,7 +30,7 @@ public class ControllerToken {
 
         return  usuarioService.buscarUsuarioPasswod(login.getUsername(),login.getPassword())
                 .map(usuario -> {
-                    String token = getJWTToken(usuario.getUsuario().getUsuario());
+                    String token = getJWTToken(usuario);
                     JwtResponse jwtResponse = new JwtResponse();
                     jwtResponse.setToken(token);
                     jwtResponse.setDatos_usuario(usuario);
@@ -40,7 +40,7 @@ public class ControllerToken {
 
     }
 
-    private String getJWTToken(String username) {
+    private String getJWTToken(LoginUsuario usuario) {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
@@ -48,11 +48,13 @@ public class ControllerToken {
         String token = Jwts
                 .builder()
                 .setId("BYTES")
-                .setSubject(username)
+                .setSubject(usuario.getUsuario().getUsuario())
                 .claim("authorities",
                         grantedAuthorities.stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList()))
+                .claim("codUsuario",usuario.getUsuario().getId())
+                .claim("id_sedes",usuario.getEmpleado().getId_sede())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(SignatureAlgorithm.HS512,

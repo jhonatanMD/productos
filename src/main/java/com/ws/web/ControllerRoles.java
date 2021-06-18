@@ -49,7 +49,7 @@ public class ControllerRoles implements IControllerService<Roles,Long>{
 
     @Override
     public Observable<Roles> buscarBySede(@NotNull Long id) {
-        return null;
+        return rolesService.findByIdSede(id);
     }
 
     @Override

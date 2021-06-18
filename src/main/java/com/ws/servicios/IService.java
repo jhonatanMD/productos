@@ -1,11 +1,15 @@
 package com.ws.servicios;
 
+import com.ws.entidades.dto.AlmacenProductoConsulta;
 import com.ws.entidades.dto.LoginUsuario;
+import com.ws.entidades.dto.ProductoConsulta;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface IService<T,D> {
@@ -38,4 +42,10 @@ public interface IService<T,D> {
     default Flowable<T> buscar(){
         return null;
     }
+
+
+    default Maybe<List<AlmacenProductoConsulta>> buscarAlmacen(long idSede , int estado){return null;}
+
+
+    default Maybe<AlmacenProductoConsulta> findByIdAlmacen(String id){return null;}
 }

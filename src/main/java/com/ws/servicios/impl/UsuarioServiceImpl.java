@@ -13,9 +13,11 @@ import com.ws.servicios.IService;
 import com.ws.util.Constantes;
 import com.ws.util.Util;
 import io.reactivex.*;
+import io.reactivex.schedulers.Schedulers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.scheduler.Scheduler;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
