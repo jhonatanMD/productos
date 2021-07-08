@@ -49,14 +49,13 @@ public class ConsultaVozServiceImpl {
     }
 
 
-    public Maybe<List<ProductoConsulta>> productos(String nombre , HttpServletRequest req){
+    public Maybe<List<ProductoConsulta>> productos(String nombre , HttpServletRequest req,Long idSede){
 
         return ConvercionToken.convercion(req).flatMapMaybe(token ->
-
              productoRepositorio.findByNombre(nombre)
-                    .filter(producto -> token.getId_sedes().contains(producto.getId_sede()))
+                    .filter(producto -> producto.getId_sede() == idSede))
                     .flatMap(producto-> almacenService.findAlmacenByProducto(producto.getId())
-                            .filter(almacen -> token.getId_sedes().contains(almacen.getId_sede()))
+                            .filter(almacen -> almacen.getId_sede() == idSede)
                             .flatMap(almacen -> {
                                 ProductoConsulta productoConsulta = new ProductoConsulta();
                                 productoConsulta.setColor(almacen.getColor());
@@ -77,7 +76,37 @@ public class ConsultaVozServiceImpl {
 
                                             return productoConsulta;
                                         }));
-                            }).toList().toMaybe()));
+                            }).toList().toMaybe());
     }
 
+
+
+    public Maybe<List<ProductoConsulta>> productos_consulta(Long idSede) {
+
+            return almacenService.findByIdSede(idSede).flatMapMaybe(almacen -> {
+                return productoRepositorio.findById(almacen.getId_producto()).flatMap( producto -> {
+                    ProductoConsulta productoConsulta = new ProductoConsulta();
+                    productoConsulta.setColor(almacen.getColor());
+                    productoConsulta.setGenero(almacen.getGenero());
+                    productoConsulta.setDescripcion(almacen.getDescripcion());
+                    productoConsulta.setStock(almacen.getStock());
+                    productoConsulta.setMinimo_stock(almacen.getMinimo_stock());
+                    productoConsulta.setPrecio(almacen.getPrecio());
+                    productoConsulta.setTalla(almacen.getTalla());
+                    productoConsulta.setProducto(producto.getNombre());
+                   return  marcaService.findById(almacen.getId_marca()).map(marca -> {
+                       productoConsulta.setMarca(marca.getMarca());
+                       return productoConsulta;
+                   }).flatMap(r -> tipoRepositorio.findAllById(almacen.getId_tipo())
+                           .toList().toMaybe().map(tipos -> {
+                               productoConsulta.setTipos(tipos.stream()
+                                       .map(Tipo::getTipo).collect(Collectors.toList()));
+
+                               return productoConsulta;
+                           }));
+
+                });
+            }).toList().toMaybe();
+
+    }
 }

@@ -2,6 +2,7 @@ package com.ws.configuracion;
 
 import com.ws.excepciones.BadRequestException;
 import com.ws.excepciones.NotFoundException;
+import com.ws.excepciones.ProductosNoExistentesException;
 import com.ws.excepciones.ResponseErrorException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -82,6 +83,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseErrorException exception(HttpServletRequest  request , Exception exception){
 
         return new ResponseErrorException("Not Found","No se encontro entidad", request.getRequestURI());
+    }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler({
+            ProductosNoExistentesException.class
+    })
+    @ResponseBody
+    public ResponseErrorException exceptionAlmacen(HttpServletRequest  request , Exception exception){
+
+        return new ResponseErrorException("Stock Productos","El producto que solicita no tiene el stock suficiente "+exception.getMessage(), request.getRequestURI());
     }
 
 

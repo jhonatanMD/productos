@@ -1,6 +1,7 @@
 package com.ws.entidades;
 
 
+import com.ws.entidades.dto.LoginUsuario;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -12,11 +13,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Setter
 @Table("modulos")
-public class Modulos implements Persistable<Integer> {
+public class Modulos implements Persistable<Long> {
 
     @Id
-    @Column
-    private Integer id;
+    private Long id;
     private String nombre;
 
     @Transient

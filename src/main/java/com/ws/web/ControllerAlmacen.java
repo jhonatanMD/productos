@@ -3,6 +3,7 @@ package com.ws.web;
 import com.ws.entidades.Almacen;
 import com.ws.entidades.dto.AlmacenProductoConsulta;
 import com.ws.entidades.dto.ProductoConsulta;
+import com.ws.entidades.dto.StockProductos;
 import com.ws.servicios.IService;
 import com.ws.util.ConvercionToken;
 import io.reactivex.Flowable;
@@ -39,22 +40,22 @@ public class ControllerAlmacen {
     }
 
     @PostMapping("/guardar")
-    public Single<Almacen> guardar(HttpServletRequest req ,@RequestBody @Valid  Almacen request) {
+    public Maybe<AlmacenProductoConsulta>  guardar(HttpServletRequest req ,@RequestBody @Valid  Almacen request) {
 
-        return ConvercionToken.convercion(req).flatMap(token -> {
+        return ConvercionToken.convercion(req).flatMapMaybe(token -> {
             request.setId_usuario_mantenimiento(token.getCodUsuario());
-            return almacenService.guardar(request);
+            return almacenService.guardarAlmacen(request);
         });
 
 
     }
 
     @PostMapping("/actualizar/{id}")
-    public Single<Almacen> actualizar(HttpServletRequest req ,@RequestBody @Valid Almacen request, @PathVariable("id")  @NotNull String id) {
+    public Maybe<AlmacenProductoConsulta>  actualizar(HttpServletRequest req ,@RequestBody @Valid Almacen request, @PathVariable("id")  @NotNull String id) {
 
-        return ConvercionToken.convercion(req).flatMap(token -> {
+        return ConvercionToken.convercion(req).flatMapMaybe(token -> {
             request.setId_usuario_mantenimiento(token.getCodUsuario());
-            return almacenService.actualizar(id, request);
+            return almacenService.actualizarAlmacen(id, request);
         });
     }
 
@@ -64,4 +65,11 @@ public class ControllerAlmacen {
     public Single<Almacen> deshabilitar(@PathVariable("id") @NotNull String id) {
         return almacenService.deshabilitar(id);
     }
+
+    @GetMapping("/stockProductos/{idSede}")
+    public Observable<StockProductos> stockProductos(@PathVariable("idSede") @NotNull Long idSede) {
+        return almacenService.productosConStockMin(idSede);
+    }
+
+    
 }

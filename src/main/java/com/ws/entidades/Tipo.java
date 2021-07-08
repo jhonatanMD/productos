@@ -1,9 +1,7 @@
 package com.ws.entidades;
 
 import com.ws.util.IdValidacion;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -32,13 +30,6 @@ public class Tipo implements Persistable<Long> {
     @Transient
     private boolean newProduct;
 
-    public Tipo(Long id, @NotNull String tipo, @NotNull String descripcion, long id_sede, int estado) {
-        this.id = id;
-        this.tipo = tipo;
-        this.descripcion = descripcion;
-        this.id_sede = id_sede;
-        this.estado = estado;
-    }
 
     @Override
     @Transient

@@ -1,6 +1,5 @@
 package com.ws.servicios.impl;
 
-import com.ws.entidades.Modulos;
 import com.ws.entidades.PermisosRoles;
 import com.ws.repositorio.PermisosRolesRepositorio;
 import io.reactivex.Maybe;
@@ -12,7 +11,10 @@ import org.springframework.stereotype.Service;
 public class PermisosRolesServiceImpl {
 
     @Autowired
-    PermisosRolesRepositorio permisosRolesRepositorio;
+    private PermisosRolesRepositorio permisosRolesRepositorio;
+
+    @Autowired
+    private RolesServiceImpl rolesService;
 
 
     public Maybe<PermisosRoles> buscarPorRol(long idRol){
@@ -25,10 +27,10 @@ public class PermisosRolesServiceImpl {
     }
 
     public Single<PermisosRoles> actualizar(PermisosRoles permisosRoles){
-        return permisosRolesRepositorio.findByIdRol(permisosRoles.getIdRol())
-                .flatMapSingle(permisos -> {
+
+        return   permisosRolesRepositorio.findByIdRol(permisosRoles.getIdRol()).flatMapSingle(permisos ->{
                     permisosRoles.setId(permisos.getId());
-                    return permisosRolesRepositorio.save(permisosRoles);
+            return  permisosRolesRepositorio.save(permisosRoles);
                 });
     }
 

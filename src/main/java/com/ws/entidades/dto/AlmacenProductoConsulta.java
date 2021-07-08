@@ -9,7 +9,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class AlmacenProductoConsulta  {
     private AlmacenProductoConsulta.Producto producto;
     private AlmacenProductoConsulta.Marca marca;
     private List<Tipo> tipos = new ArrayList<>();
+    private String displayName;
     private String color;
     private String talla;
     private String genero;
@@ -64,5 +67,30 @@ public class AlmacenProductoConsulta  {
 
         private long id;
         private String tipo;
+    }
+
+
+    @Override
+    public String toString() {
+        return
+                producto.getProducto() +
+                " " + marca.getMarca() +
+                " " + tiposConvert(tipos.stream().map(Tipo::getTipo))+
+                " " + color +
+                " " + talla +
+                " " + genero +
+                " " + descripcion ;
+    }
+
+
+
+    private String tiposConvert(Stream<String> tipos){
+
+        String tipo  = "";
+
+        tipos.parallel().map(d -> tipo.concat(d)+" ");
+
+        return tipo;
+
     }
 }

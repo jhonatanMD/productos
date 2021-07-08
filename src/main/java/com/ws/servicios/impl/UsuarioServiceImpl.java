@@ -1,9 +1,6 @@
 package com.ws.servicios.impl;
 
-import com.ws.entidades.Empleado;
-import com.ws.entidades.Modulos;
-import com.ws.entidades.Roles;
-import com.ws.entidades.Usuario;
+import com.ws.entidades.*;
 import com.ws.entidades.dto.LoginUsuario;
 import com.ws.repositorio.EmpleadoRepositorio;
 import com.ws.repositorio.RolesRepositorio;
@@ -42,6 +39,8 @@ public class UsuarioServiceImpl implements IService<Usuario,Long> {
     @Autowired
     ModulosServiceImpl modulosService;
 
+    @Autowired
+    IService<Empresa,Long> empresaService;
 
     @Autowired
     SedeRepositorio sedeRepositorio;
@@ -114,9 +113,10 @@ public class UsuarioServiceImpl implements IService<Usuario,Long> {
                             return permisosRolesService.buscarPorRol(roles.getId())
                                     .filter(permisos -> permisos.getEstado() == Constantes.ESTADO_ACTIVO)
                                     .flatMapSingle(permisosRoles ->
-                                 modulosService.buscarModulosPorId(permisosRoles.getModulos()).toList()
+                                 modulosService.buscarModulosPorId(permisosRoles.getModulos().stream().map(Modulos::getId)
+                                         .collect(Collectors.toList())).toList()
                                         .flatMap(modulos -> {
-                                            permisosRoles.setModulos(modulos.stream().map(Modulos::getNombre).collect(Collectors.toList()));
+                                            permisosRoles.setModulos(modulos);
                                             loginUsuario.setPermisosRoles(permisosRoles);
                                             return Single.just(loginUsuario);
                                         })).flatMap(res ->
@@ -124,7 +124,10 @@ public class UsuarioServiceImpl implements IService<Usuario,Long> {
                                                     .filter(sede -> sede.getEstado() == Constantes.ESTADO_ACTIVO).toList().map(sedes ->{
                                                 loginUsuario.setSede(sedes);
                                                 return loginUsuario;
-                                            }));
+                                            })).flatMap(login  ->
+                                                 empresaService.findByIdSede(login.getSede().get(0).getId()).toList().map(empresa -> {
+                                                     login.setEmpresa(empresa.get(0));
+                                                    return login; }));
                         });
                     });
                  });

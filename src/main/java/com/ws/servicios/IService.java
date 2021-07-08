@@ -3,6 +3,8 @@ package com.ws.servicios;
 import com.ws.entidades.dto.AlmacenProductoConsulta;
 import com.ws.entidades.dto.LoginUsuario;
 import com.ws.entidades.dto.ProductoConsulta;
+import com.ws.entidades.dto.StockProductos;
+
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -48,4 +50,13 @@ public interface IService<T,D> {
 
 
     default Maybe<AlmacenProductoConsulta> findByIdAlmacen(String id){return null;}
+
+
+    default  Maybe<AlmacenProductoConsulta> actualizarAlmacen( D id ,T request){return null;}
+
+    default Maybe<AlmacenProductoConsulta> guardarAlmacen(T request){return null;}
+
+    default  Observable<StockProductos> productosConStockMin(Long idSede){
+        return null;
+    }
 }

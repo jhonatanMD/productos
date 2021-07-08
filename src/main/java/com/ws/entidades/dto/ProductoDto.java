@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProductoDto {
 
+    private String id;
     private int indice;
     private int cantidad;
     private String descripcion;

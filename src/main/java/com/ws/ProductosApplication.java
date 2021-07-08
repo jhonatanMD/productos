@@ -41,8 +41,11 @@ public class ProductosApplication {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/token/login").permitAll()
-					.antMatchers(HttpMethod.GET, "/api/generarReporte").permitAll()
+					.antMatchers(HttpMethod.GET, "/api/generarReporteOrdenSalida").permitAll()
+					.antMatchers(HttpMethod.GET, "/api/generarReporteOrdenCompra").permitAll()
 					.antMatchers(HttpMethod.POST, "/api/consulta/consultar_voz").permitAll()
+					.antMatchers(HttpMethod.GET, "/api/permisos/**").permitAll()
+					.antMatchers(HttpMethod.POST, "/api/permisos/**").permitAll()
 					.antMatchers(HttpMethod.GET, AUTH_WHITELIST).permitAll()
 					.anyRequest().authenticated().and().cors();
 		}

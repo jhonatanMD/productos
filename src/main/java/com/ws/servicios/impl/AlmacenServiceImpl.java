@@ -5,6 +5,7 @@ import com.ws.entidades.Marca;
 import com.ws.entidades.Tipo;
 import com.ws.entidades.dto.AlmacenProductoConsulta;
 import com.ws.entidades.dto.ProductoConsulta;
+import com.ws.entidades.dto.StockProductos;
 import com.ws.repositorio.AlmacenRepositorio;
 import com.ws.repositorio.ConsultaVozRepositorio;
 import com.ws.repositorio.ProductoRepositorio;
@@ -53,9 +54,26 @@ public class AlmacenServiceImpl implements IService<Almacen,String> {
     }
 
     @Override
+    public Maybe<AlmacenProductoConsulta> actualizarAlmacen(String id, Almacen request) {
+        request.setFecha_actualizacion(LocalDate.now());
+        request.setId(id);
+        return almacenRepositorio.findById(id)
+                .flatMapSingle(res -> {
+                    request.setFecha_ingreso(res.getFecha_ingreso());
+                    return almacenRepositorio.save(request);
+                }).flatMapMaybe(res -> findAlmacenById(res.getId()));
+    }
+
+    @Override
+    public Maybe<AlmacenProductoConsulta> guardarAlmacen(Almacen request) {
+        request.setFecha_ingreso(LocalDate.now());
+        return almacenRepositorio.save(request).flatMapMaybe(res -> findAlmacenById(res.getId()));
+    }
+
+
+    @Override
     public Single<Almacen> guardar(Almacen request) {
         request.setFecha_ingreso(LocalDate.now());
-
         return almacenRepositorio.save(request);
     }
 
@@ -77,34 +95,7 @@ public class AlmacenServiceImpl implements IService<Almacen,String> {
 
     @Override
     public Maybe<AlmacenProductoConsulta> findByIdAlmacen(String id) {
-        return almacenRepositorio.findById(id).flatMap(almacen -> {
-            AlmacenProductoConsulta productoConsulta = new AlmacenProductoConsulta();
-            productoConsulta.setIdAlmacen(almacen.getId());
-            productoConsulta.setFecha_ingreso(almacen.getFecha_ingreso());
-            productoConsulta.setFecha_actualizacion(almacen.getFecha_actualizacion());
-            productoConsulta.setColor(almacen.getColor());
-            productoConsulta.setGenero(almacen.getGenero());
-            productoConsulta.setDescripcion(almacen.getDescripcion());
-            productoConsulta.setStock(almacen.getStock());
-            productoConsulta.setMinimo_stock(almacen.getMinimo_stock());
-            productoConsulta.setPrecio(almacen.getPrecio());
-            productoConsulta.setTalla(almacen.getTalla());
-            return productoRepositorio.findById(almacen.getId_producto()).flatMap(producto -> {
-                productoConsulta.setProducto(new AlmacenProductoConsulta.Producto(producto.getId(),producto.getNombre()));
-                return marcaService.findById(almacen.getId_marca()).map(marca -> {
-                    productoConsulta.setMarca(new AlmacenProductoConsulta.Marca(marca.getId(),marca.getMarca()));
-                    return productoConsulta;
-                });
-            }).flatMap(r -> tipoRepositorio.findAllById(almacen.getId_tipo())
-                    .toList().toMaybe().map(res -> {
-
-                        productoConsulta.setTipos( res.stream().map(tipo -> {
-                            return new AlmacenProductoConsulta.Tipo(tipo.getId(),tipo.getTipo());
-                        }).collect(Collectors.toList()));
-
-                        return productoConsulta;
-                    }));
-        });
+        return findAlmacenById(id);
     }
 
     @Override
@@ -153,9 +144,56 @@ public class AlmacenServiceImpl implements IService<Almacen,String> {
                                         productoConsulta.setTipos( res.stream().map(tipo -> {
                                             return new AlmacenProductoConsulta.Tipo(tipo.getId(),tipo.getTipo());
                                         }).collect(Collectors.toList()));
-
+                                        productoConsulta.setDisplayName(productoConsulta.toString());
                                         return productoConsulta;
                                     }));
                         }).toList().toMaybe();
+
+    }
+
+    @Override
+    public Observable<StockProductos> productosConStockMin(Long idSede){
+        return almacenRepositorio.findBySede(idSede)
+        .skip(5)
+        .filter(d -> d.getStock() <= d.getMinimo_stock())
+        .flatMapMaybe(almacen -> {
+            return findAlmacenById(almacen.getId()).map(producto -> {
+                return StockProductos.builder().producto(producto.getDisplayName()).stockMinimo(almacen.getMinimo_stock()).stock(almacen.getStock()).build();
+            });
+        });
+    }
+
+
+
+    public Maybe<AlmacenProductoConsulta> findAlmacenById(String id){
+
+        return almacenRepositorio.findById(id).flatMap(almacen -> {
+            AlmacenProductoConsulta productoConsulta = new AlmacenProductoConsulta();
+            productoConsulta.setIdAlmacen(almacen.getId());
+            productoConsulta.setFecha_ingreso(almacen.getFecha_ingreso());
+            productoConsulta.setFecha_actualizacion(almacen.getFecha_actualizacion());
+            productoConsulta.setColor(almacen.getColor());
+            productoConsulta.setGenero(almacen.getGenero());
+            productoConsulta.setDescripcion(almacen.getDescripcion());
+            productoConsulta.setStock(almacen.getStock());
+            productoConsulta.setMinimo_stock(almacen.getMinimo_stock());
+            productoConsulta.setPrecio(almacen.getPrecio());
+            productoConsulta.setTalla(almacen.getTalla());
+            return productoRepositorio.findById(almacen.getId_producto()).flatMap(producto -> {
+                productoConsulta.setProducto(new AlmacenProductoConsulta.Producto(producto.getId(),producto.getNombre()));
+                return marcaService.findById(almacen.getId_marca()).map(marca -> {
+                    productoConsulta.setMarca(new AlmacenProductoConsulta.Marca(marca.getId(),marca.getMarca()));
+                    return productoConsulta;
+                });
+            }).flatMap(r -> tipoRepositorio.findAllById(almacen.getId_tipo())
+                    .toList().toMaybe().map(res -> {
+
+                        productoConsulta.setTipos( res.stream().map(tipo -> {
+                            return new AlmacenProductoConsulta.Tipo(tipo.getId(),tipo.getTipo());
+                        }).collect(Collectors.toList()));
+                        productoConsulta.setDisplayName(productoConsulta.toString());
+                        return productoConsulta;
+                    }));
+        });
     }
 }

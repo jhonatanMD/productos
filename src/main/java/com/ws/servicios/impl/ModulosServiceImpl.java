@@ -19,8 +19,8 @@ public class ModulosServiceImpl {
 
 
 
-    public Flowable<Modulos> buscarModulosPorId(List<String> ids) {
-        return modulosRepositorio.findAllById(ids.stream().map(Integer::parseInt).collect(Collectors.toList()));
+    public Flowable<Modulos> buscarModulosPorId(List<Long> ids) {
+        return modulosRepositorio.findAllById(ids);
     }
 
 

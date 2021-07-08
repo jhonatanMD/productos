@@ -234,12 +234,12 @@ VERSION: 01
 ]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement x="494" y="40" width="20" height="20" uuid="2fbde356-a661-4583-bb3b-9c1924d07f8e"/>
+				<reportElement x="531" y="40" width="20" height="20" uuid="2fbde356-a661-4583-bb3b-9c1924d07f8e"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="530" y="40" width="25" height="20" uuid="73b296ad-ea67-4b60-a663-aaf41b2f6b31"/>
+				<reportElement x="495" y="40" width="25" height="20" uuid="73b296ad-ea67-4b60-a663-aaf41b2f6b31"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -254,7 +254,7 @@ VERSION: 01
 				<text><![CDATA[DE]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="450" y="0" width="104" height="59" backcolor="rgba(255, 255, 255, 0.0)" uuid="f38aa56f-2403-413c-8448-29f4aab9ade0"/>
+				<reportElement x="450" y="0" width="104" height="60" backcolor="rgba(255, 255, 255, 0.0)" uuid="f38aa56f-2403-413c-8448-29f4aab9ade0"/>
 			</rectangle>
 			<rectangle>
 				<reportElement x="450" y="60" width="105" height="55" backcolor="rgba(255, 255, 255, 0.0)" uuid="eb1f3253-5ac3-48f4-a26b-4c2f87b6133e"/>
@@ -540,7 +540,7 @@ VERSION: 01
 				<text><![CDATA[CANT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="314" height="20" uuid="d8b0db21-4665-4e0b-8627-274e3d441966">
+				<reportElement x="120" y="0" width="298" height="20" uuid="d8b0db21-4665-4e0b-8627-274e3d441966">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94d12480-9a1b-4975-8a04-825be87d51ce"/>
 				</reportElement>
 				<box>
@@ -553,7 +553,7 @@ VERSION: 01
 				<text><![CDATA[DESCRIPCIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="0" width="60" height="20" uuid="77cd3122-f62e-4de9-a724-6143fe00d205">
+				<reportElement x="418" y="0" width="61" height="20" uuid="77cd3122-f62e-4de9-a724-6143fe00d205">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94d12480-9a1b-4975-8a04-825be87d51ce"/>
 				</reportElement>
 				<box>
@@ -566,7 +566,7 @@ VERSION: 01
 				<text><![CDATA[V/U]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="495" y="0" width="60" height="20" uuid="83aec368-702e-4cf0-b058-32ee44848b81">
+				<reportElement x="479" y="0" width="76" height="20" uuid="83aec368-702e-4cf0-b058-32ee44848b81">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94d12480-9a1b-4975-8a04-825be87d51ce"/>
 				</reportElement>
 				<box>
@@ -595,7 +595,7 @@ VERSION: 01
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="0" width="314" height="20" uuid="a040b9cf-e154-4113-ae0f-4e06bbd4d427">
+				<reportElement x="120" y="0" width="298" height="20" uuid="a040b9cf-e154-4113-ae0f-4e06bbd4d427">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d198d27d-28cf-43a7-b6ed-34cc30e203d2"/>
 				</reportElement>
 				<box>
@@ -619,19 +619,7 @@ VERSION: 01
 				<textFieldExpression><![CDATA[$F{indice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="495" y="0" width="60" height="20" uuid="2cfbe613-1d76-493d-adda-e89d47607892">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d198d27d-28cf-43a7-b6ed-34cc30e203d2"/>
-				</reportElement>
-				<box>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{precioTotal}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="435" y="0" width="60" height="20" uuid="5536c706-3a00-4c0a-8392-72bcaa2dd1d6">
+				<reportElement x="417" y="0" width="61" height="20" uuid="5536c706-3a00-4c0a-8392-72bcaa2dd1d6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d198d27d-28cf-43a7-b6ed-34cc30e203d2"/>
 				</reportElement>
 				<box>
@@ -643,13 +631,25 @@ VERSION: 01
 				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="500" y="3" width="10" height="14" uuid="e42d3cfb-279c-4afa-aee6-efbb411de233"/>
+				<reportElement x="419" y="4" width="10" height="14" uuid="32a8ef6e-ae9c-4dfb-80f1-7a55c9ea810f"/>
 				<text><![CDATA[S/]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="437" y="3" width="10" height="14" uuid="32a8ef6e-ae9c-4dfb-80f1-7a55c9ea810f"/>
+				<reportElement x="479" y="5" width="10" height="14" uuid="e42d3cfb-279c-4afa-aee6-efbb411de233"/>
 				<text><![CDATA[S/]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="479" y="1" width="76" height="20" uuid="2cfbe613-1d76-493d-adda-e89d47607892">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d198d27d-28cf-43a7-b6ed-34cc30e203d2"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precioTotal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -666,7 +666,7 @@ VERSION: 01
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{subTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -675,7 +675,7 @@ VERSION: 01
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{igv}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -683,7 +683,7 @@ VERSION: 01
 				<box>
 					<leftPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{totalPagar}]]></textFieldExpression>
 			</textField>
 			<staticText>

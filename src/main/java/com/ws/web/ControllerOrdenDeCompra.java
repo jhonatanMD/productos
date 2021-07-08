@@ -1,19 +1,12 @@
 package com.ws.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ws.entidades.OrdenDeCompra;
 import com.ws.servicios.impl.OrdenDeCompraServiceImpl;
-
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ordenCompra")
@@ -32,9 +25,17 @@ public class ControllerOrdenDeCompra {
 	}
 
 	@PostMapping("/guardar")
-	public Single<OrdenDeCompra> guardar(@RequestBody OrdenDeCompra ordenDeCompra){
+	public Single<OrdenDeCompra> guardar(@RequestBody OrdenDeCompra ordenDeCompra) {
+	 	return service.guardarOrdenCompra(ordenDeCompra);
+
+	}
+
+
+	@GetMapping("/buscarPorId/{id}")
+	public Maybe<OrdenDeCompra> buscarPorId(@PathVariable("id") String id){
 		
-		return service.guardarOrdenCompra(ordenDeCompra);
+		return service.buscarPorId(id);
+		
 	}
 	
 }

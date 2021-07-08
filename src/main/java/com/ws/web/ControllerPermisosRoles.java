@@ -28,7 +28,7 @@ public class ControllerPermisosRoles {
     }
 
     @PostMapping("/actualizar/{idRol}")
-    public Single<PermisosRoles> guardar(@RequestBody PermisosRoles permisosRoles, @PathVariable("idRol") long idRol){
+    public Single<PermisosRoles> actualizar(@RequestBody PermisosRoles permisosRoles, @PathVariable("idRol") long idRol){
         permisosRoles.setIdRol(idRol);
         return permisosRolesService.actualizar(permisosRoles);
     }

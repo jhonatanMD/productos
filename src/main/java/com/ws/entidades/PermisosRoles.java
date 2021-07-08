@@ -18,7 +18,7 @@ public class PermisosRoles {
     @Id
     private String id;
     private long idRol;
-    private List<String> modulos;
+    private List<Modulos> modulos;
     @NotNull
     private Permisos permisos;
     private int estado;
