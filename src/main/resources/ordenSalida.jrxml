@@ -17,7 +17,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="cantidad" class="java.lang.String"/>
+	<field name="cant" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="nuevo" class="java.lang.String"/>
 	<field name="usado" class="java.lang.String"/>
@@ -395,7 +395,7 @@ VERSION: 01
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cant}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="479" y="0" width="76" height="20" uuid="2cfbe613-1d76-493d-adda-e89d47607892">

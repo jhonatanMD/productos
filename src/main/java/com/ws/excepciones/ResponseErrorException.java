@@ -2,11 +2,7 @@ package com.ws.excepciones;
 
 import lombok.Getter;
 
-/**
- * ResponseErrorException clase para respuesta de exceptiones
- * @version 1.0, 22/04/2021
- * @author Jhonatan Mallqui
- */
+
 @Getter
 public class ResponseErrorException {
 

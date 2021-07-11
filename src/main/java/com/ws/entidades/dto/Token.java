@@ -23,5 +23,8 @@ public class Token {
     private long iat;
     private long exp;
     private List<Long> id_sedes;
+    private String empresa;
+    private String ruc_empresa;
+    private String direccion_empresa;
 
 }
