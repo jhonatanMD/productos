@@ -72,7 +72,10 @@ public class UsuarioServiceImpl implements IService<Usuario,Long> {
         usuario.setId(id);
         usuario.setPassword(Util.encript(password));
         return usuarioRepositorio.findById(id)
-                .flatMapSingle(res -> usuarioRepositorio.save(usuario));
+                .flatMapSingle(res -> {
+                    
+                    usuario.setNewProduct(false);
+                    return usuarioRepositorio.save(usuario);});
         }
 
     @Override
